@@ -97,12 +97,12 @@ static int ov7736_gpio_ctrl(struct v4l2_subdev *sd, int flag)
 
 
 	if (flag) {
-		gpio_set_value(camera_power_down, 0);
+		gpio_set_value(camera_power_down, 1);
 		usleep_range(5000, 6000);
 		gpio_set_value(camera_reset, 1);
 	} else {
 		gpio_set_value(camera_reset, 0);
-		gpio_set_value(camera_power_down, 1);
+		gpio_set_value(camera_power_down, 0);
 		gpio_free(camera_reset);
 		gpio_free(camera_power_down);
 		camera_reset = -1;

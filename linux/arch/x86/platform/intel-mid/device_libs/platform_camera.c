@@ -216,44 +216,12 @@ static struct camera_device_table byt_crv2_cam_table[] = {
 #elif defined CONFIG_MRD8
 static struct camera_device_table byt_crv2_cam_table[] = {
 	{
-		{SFI_DEV_TYPE_I2C, 2, 0x3c, 0x0, 0x0, "ov2685"},
-		{"ov2685", SFI_DEV_TYPE_I2C, 0, &ov2685_platform_data,
+		{SFI_DEV_TYPE_I2C, 2, 0x24, 0x0, 0x0, "hm2056"},
+		{"hm2056", SFI_DEV_TYPE_I2C, 0, &hm2056_platform_data,
 			&intel_register_i2c_camera_device}
 	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x3c, 0x0, 0x0, "ov2685f"},
-		{"ov2685f", SFI_DEV_TYPE_I2C, 0, &ov2685f_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x3C, 0x0, 0x0, "ov7736"},
+		{SFI_DEV_TYPE_I2C, 2, 0x21, 0x0, 0x0, "ov7736"},
 		{"ov7736", SFI_DEV_TYPE_I2C, 0, &ov7736_platform_data,
-			&intel_register_i2c_camera_device}
-	},{
-		{SFI_DEV_TYPE_I2C, 2, 0x3C, 0x0, 0x0, "ov5670"},
-		{"ov5670", SFI_DEV_TYPE_I2C, 0, &ov5670_platform_data,
-			&intel_register_i2c_camera_device}
-	},  {
-		{SFI_DEV_TYPE_I2C, 2, 0x36, 0x0, 0x0, "ov5693"},
-		{"ov5693", SFI_DEV_TYPE_I2C, 0, &ov5693_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x36, 0x0, 0x0, "ov2722"},
-		{"ov2722", SFI_DEV_TYPE_I2C, 0, &ov2722_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x3C, 0x0, 0x0, "gc2155"},
-		{"gc2155", SFI_DEV_TYPE_I2C, 0, &gc2155_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x21, 0x0, 0x0, "gc0310soc"},
-		{"gc0310soc", SFI_DEV_TYPE_I2C, 0, &gc0310soc_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x3C, 0x0, 0x0, "gc2235f"},
-		{"gc2235f", SFI_DEV_TYPE_I2C, 0, &gc2235f_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x36, 0x0, 0x0, "gc5004"},
-		{"gc5004", SFI_DEV_TYPE_I2C, 0, &gc5004_platform_data,
 			&intel_register_i2c_camera_device}
 	}, {
 		{SFI_DEV_TYPE_I2C, 2, 0x36, 0x0, 0x0, "ov5648"},
@@ -264,14 +232,14 @@ static struct camera_device_table byt_crv2_cam_table[] = {
 		{"ov2680b", SFI_DEV_TYPE_I2C, 0, &ov2680b_platform_data,
 			&intel_register_i2c_camera_device}
 	}, {
-		{SFI_DEV_TYPE_I2C, 2, 0x21, 0x0, 0x0, "gc0339"},
-		{"gc0339", SFI_DEV_TYPE_I2C, 0, &gc0339_platform_data,
-			&intel_register_i2c_camera_device}
-	}, {
 		{SFI_DEV_TYPE_I2C, 2, 0x10, 0x0, 0x0, "ov2680f"},
 		{"ov2680f", SFI_DEV_TYPE_I2C, 0, &ov2680f_platform_data,
 			&intel_register_i2c_camera_device}
-	}
+	}, {
+		{SFI_DEV_TYPE_I2C, 2, 0x21, 0x0, 0x0, "gc0310soc"},
+		{"gc0310soc", SFI_DEV_TYPE_I2C, 0, &gc0310soc_platform_data,
+			&intel_register_i2c_camera_device}
+    }
 };
 
 #else
@@ -553,6 +521,9 @@ struct i2c_client *i2c_find_client_by_name(char *name)
 static void atomisp_unregister_acpi_devices(struct atomisp_platform_data *pdata)
 {
 	const char *subdev_name[] = {
+		"2-0024",
+		"2-0021",
+		"2-0010"
 		"2-0036",	/* ov2722 driver*/
 		"2-006f",   /* bf3a20 driver*/
 #ifndef CONFIG_MRD7
@@ -646,8 +617,8 @@ int gc_camera_set_pmic(bool flag)
 	//u8 reg_addr[CAMERA_POWER_NUM] = {VPROG_1P8V, VPROG_2P8V};
 	//u8 reg_value[2] = {VPROG_DISABLE, VPROG_ENABLE};
 	u8 reg_addr[CAMERA_POWER_NUM] = {0x12, 0x13};
-	u8 reg_value[2] = {0x2, 0x20};
-	u8 reg_adjust_addr[2] = {0x1A, 0x28};
+	u8 reg_value[2] = {0x1, 0x20};
+	u8 reg_adjust_addr[2] = {0x19, 0x28};
 	u8 reg_adjust_value[2] = {22, 21}; /* 1.8v for ELDO2, 2.8v for ALDO1 */
 //	static struct vprog_status status;
 	static DEFINE_MUTEX(mutex_power);
@@ -753,8 +724,8 @@ int camera_set_pmic_power(enum camera_pmic_pin pin, bool flag)
 	//u8 reg_addr[CAMERA_POWER_NUM] = {VPROG_1P8V, VPROG_2P8V};
 	//u8 reg_value[2] = {VPROG_DISABLE, VPROG_ENABLE};
 	u8 reg_addr[CAMERA_POWER_NUM] = {0x12, 0x13};
-	u8 reg_value[2] = {0x2, 0x20};
-	u8 reg_adjust_addr[2] = {0x1A, 0x28};
+	u8 reg_value[2] = {0x1, 0x20};
+	u8 reg_adjust_addr[2] = {0x19, 0x28};
 	u8 reg_adjust_value[2] = {22, 21}; /* 1.8v for ELDO2, 2.8v for ALDO1 */
 
 //	static struct vprog_status status[CAMERA_POWER_NUM];

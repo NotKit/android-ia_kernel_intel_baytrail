@@ -116,15 +116,15 @@ static int gc0310_gpio_ctrl(struct v4l2_subdev *sd, int flag)
 		}
 
 	if (flag) {
-		gpio_set_value(gp_camera1_power_down, 0);
+		gpio_set_value(gp_camera1_power_down, 1);
 
 		msleep(10);
-		gpio_set_value(gp_camera1_power_down, 1);
-		msleep(10);
 		gpio_set_value(gp_camera1_power_down, 0);
+		msleep(10);
+		gpio_set_value(gp_camera1_power_down, 1);
 	} else {
 
-		gpio_set_value(gp_camera1_power_down, 1);
+		gpio_set_value(gp_camera1_power_down, 0);
 
 		gpio_free(gp_camera1_power_down);
 		gp_camera1_power_down = -1;
