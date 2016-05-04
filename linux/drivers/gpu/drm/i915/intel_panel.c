@@ -803,7 +803,6 @@ void intel_panel_enable_backlight(struct drm_device *dev,
 #ifndef ENABLE_SIO_PWM
 	unsigned long flags;
 #endif
-	uint32_t pwm_base;
 
 	DRM_DEBUG_DRIVER("\n");
 	if (IS_VALLEYVIEW(dev)
@@ -812,6 +811,7 @@ void intel_panel_enable_backlight(struct drm_device *dev,
 #endif	
 	) {
 #ifdef CONFIG_CRYSTAL_COVE
+        uint32_t pwm_base;
 		uint32_t val;
 		if (BYT_CR_CONFIG) {
 			/* GPIOC_94 config to PWM0 function */
