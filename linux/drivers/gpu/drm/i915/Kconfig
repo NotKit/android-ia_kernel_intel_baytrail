@@ -1,0 +1,6 @@
+config SUPPORT_EDP_BRIDGE_TC358860
+       bool "EDP to MIPI TC358860 Bridge"
+       depends on DRM || DRM_I915
+       default n
+       help
+         xxxxxx
