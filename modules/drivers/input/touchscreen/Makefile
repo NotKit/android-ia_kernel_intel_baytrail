@@ -6,3 +6,5 @@ obj-$(CONFIG_TOUCHSCREEN_SYNAPTICS_DSX) += synaptics_dsx/
 obj-$(CONFIG_TOUCHSCREEN_GOODIX_GT9XX) += gt9xx/
 obj-$(CONFIG_TOUCHSCREEN_ILITEK) += ilitek/
 obj-$(CONFIG_TOUCHSCREEN_SILEAD) += silead/
+obj-$(CONFIG_TOUCHSCREEN_SILEAD_GSLX68X) += gslx68x_ts.o
+gslx68x_ts-objs = gsl_point_id.o gsl1688.o
